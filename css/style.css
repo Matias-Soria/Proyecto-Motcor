@@ -1,0 +1,152 @@
+/**RESET**/
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/**HEADER**/
+
+header {
+    background-color: black;
+    padding: 10px;
+    position: sticky;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+}
+
+.logoautocity {
+    width: 200px;
+    height: auto;
+}
+
+.navbar {
+    background-color: black;
+    overflow: hidden;
+}
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.navbar li {
+    display: inline-block;
+    padding: 14px 20px;
+}
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+}
+.navbar a:hover {
+    color: orange;
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+
+.logofiat {
+    width: 150px;
+    height: auto;
+}
+
+/*?MAIN**/
+
+main {
+    background-color: rgba(169, 169, 169, 0.568);
+    padding: 20px; /* Agrega espacio dentro del contenedor principal */
+    min-height: calc(100vh - 140px); /* Ajusta dinámicamente para ocupar toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Asegura que el formulario y el footer estén correctamente alineados */
+}
+
+main section h1 {
+    font-size: 45px;
+    text-align: center;
+}
+
+/**FORMULARIO**/
+form {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto; /* Centra el formulario */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/** Botones **/
+button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button[type="reset"] {
+    background-color: #6c757d;
+}
+
+button[type="reset"]:hover {
+    background-color: #5a6268;
+}
+
+/*!FOOTER**/
+
+footer {
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.atencion {
+    color: white;
+    align-items: center;
+}
+
+@media print {
+    .navbar {
+        display: none; /* Oculta la barra de navegación */
+    }
+    button, input[type="button"], input[type="submit"], input[type="reset"] {
+        display: none; /* Oculta todos los botones */
+    }
+}

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Motcor</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./img/logofiat.png">
+
+    <style>
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img class="logoautocity" src="./img/logoautocity.jpg" alt="">
+        <div class="navbar">
+            <ul>
+                <li><a href="./index.html">Fiat</a></li>
+                <li><a href="./pages/jeep.html">Jeep</a></li>
+            </ul>
+        </div>
+        <img class="logofiat" src="./img/logofiat.png" alt="">
+    </header>
+
+    <main>
+        <section>
+            <h1>TU HISTORIA CON NOSOTROS</h1>
+            <form id="formulario" action="/procesar-datos" method="POST" onsubmit="return validarFormulario()">
+                <!-- Nombre titular del plan -->
+                <div>
+                    <label for="nombre-titular">Nombre titular del plan:</label>
+                    <input type="text" id="nombre-titular" name="nombre-titular" required>
+                </div>
+                <!-- Grupo y orden -->
+                <div>
+                    <label for="Grupo-orden">Grupo y orden:</label>
+                    <input type="text" id="Grupo-orden" name="Grupo-orden" required>
+                </div>
+                <!-- Mail -->
+                <div>
+                    <label for="email">Mail:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error" id="error-email">Por favor, ingrese un correo válido.</span>
+                </div>
+                <!-- Teléfono de contacto -->
+                <div>
+                    <label for="telefono">Teléfono de contacto:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                    <span class="error" id="error-telefono">Por favor, ingrese un número de teléfono válido (mínimo 8
+                        dígitos).</span>
+                </div>
+                <!-- Realiza cambio de titularidad -->
+                <div>
+                    <label for="cambio-titularidad">¿Realiza cambio de titularidad?</label>
+                    <select id="cambio-titularidad" name="cambio-titularidad" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <!-- Datos nuevo titular (opcional) -->
+                <div id="nuevo-titular" class="hidden">
+                    <label for="nombre-nuevo-titular">Nombre del nuevo titular:</label>
+                    <input type="text" id="nombre-nuevo-titular" name="nombre-nuevo-titular">
+                </div>
+                <div>
+                    <label for="vehiculo">Seleccione el vehículo que solicita el cliente:</label>
+                    <select id="vehiculo" name="vehiculo" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="Fiat Cronos">Fiat Cronos</option>
+                        <option value="Fiat Mobi">Fiat Mobi</option>
+                        <option value="Fiat Pulse">Fiat Pulse</option>
+                        <option value="Fiat Strada">Fiat Strada</option>
+                        <option value="Fiat Fastback">Fiat Fastback</option>
+                        <option value="Fiat Toro">Fiat Toro</option>
+                        <option value="Fiat Fiorino">Fiat Fiorino</option>
+                    </select>
+                </div>
+                <!-- Campo de selección para la versión del vehículo -->
+                <div id="version-vehiculo-container" class="hidden">
+                    <label for="version-vehiculo">Seleccione la versión:</label>
+                    <select id="version-vehiculo" name="version-vehiculo" required>
+                        <option value="">Seleccionar versión...</option>
+                    </select>
+                </div>
+                <!-- Selección de los Colores -->
+                <label for="color1">Color 1:</label>
+                <select id="color1">
+                    <option value="">-- Seleccione un Color --</option>
+                </select>
+
+                <label for="color2">Color 2:</label>
+                <select id="color2">
+                    <option value="">-- Seleccione un Color --</option>
+                </select>
+
+                <label for="color3">Color 3:</label>
+                <select id="color3">
+                    <option value="">-- Seleccione un Color --</option>
+                </select>
+
+                <!-- Tipo de factura -->
+                <div>
+                    <label for="tipo-factura">Tipo de factura (A o B):</label>
+                    <select id="tipo-factura" name="tipo-factura" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="A">Factura A</option>
+                        <option value="B">Factura B</option>
+                    </select>
+                </div>
+                <!-- Entrega vehículo usado -->
+                <div>
+                    <label for="entrega-usado">¿Entrega vehículo usado?</label>
+                    <select id="entrega-usado" name="entrega-usado" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <!-- Campos adicionales para vehículo usado -->
+                <div id="datos-usado" class="hidden">
+                    <div>
+                        <label for="marca-vehiculo">Marca del vehículo:</label>
+                        <input type="text" id="marca-vehiculo" name="marca-vehiculo">
+                    </div>
+                    <div>
+                        <label for="modelo-vehiculo">Modelo del vehículo:</label>
+                        <input type="text" id="modelo-vehiculo" name="modelo-vehiculo">
+                    </div>
+                    <div>
+                        <label for="anio-vehiculo">Año:</label>
+                        <input type="number" id="anio-vehiculo" name="anio-vehiculo" min="1900" max="2024">
+                    </div>
+                    <div>
+                        <label for="patente-vehiculo">Patente:</label>
+                        <input type="text" id="patente-vehiculo" name="patente-vehiculo">
+                    </div>
+                    <div>
+                        <label for="precio-toma">Precio de toma de la unidad:</label>
+                        <input type="text" id="precio-toma" name="precio-toma">
+                    </div>
+                </div>
+                <!-- Profesión -->
+                <div>
+                    <label for="profesion">Profesión:</label>
+                    <input type="text" id="profesion" name="profesion">
+                </div>
+                <!-- Estado civil -->
+                <div>
+                    <label for="estado-civil">Estado civil:</label>
+                    <select id="estado-civil" name="estado-civil" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="soltero">Soltero/a</option>
+                        <option value="casado">Casado/a</option>
+                        <option value="divorciado">Divorciado/a</option>
+                        <option value="viudo">Viudo/a</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <!-- Primer 0KM -->
+                <div>
+                    <label for="primer-0km">¿Es su primer 0KM?</label>
+                    <select id="primer-0km" name="primer-0km" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <!-- Intenciones de cancelar la unidad para patentar -->
+                <div>
+                    <label for="cancelar-patentar">¿Tiene intenciones de cancelar la unidad para patentar?</label>
+                    <select id="cancelar-patentar" name="cancelar-patentar" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <!--Calificacion de atencion-->
+                <div>
+                    <label for="calificacion">
+                        ¿Del 1 al 10, cómo calificaría hasta el momento el proceso de compra de su 0KM por plan de
+                        ahorro?
+                    </label>
+                    <input type="number" id="calificacion" name="calificacion" min="1" max="10" required>
+                    <small id="error-calificacion" style="color: red; display: none;">
+                        Por favor, ingrese un número del 1 al 10.
+                    </small>
+                </div>
+
+                <!-- Administrativo de atencion -->
+                <div>
+                    <label for="Administrativo">Administrativo que atendió:</label>
+                    <select id="Administrativo" name="Administrativo" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="Nicolas Peiretti">Nicolas Peiretti</option>
+                        <option value="Melina Collias">Melina Collias</option>
+                        <option value="Matias Gomez">Matias Gomez</option>
+                        <option value="Nicolas Perez">Nicolas Perez</option>
+                        <option value="Fernanda Villafañez">Fernanda Villafañez</option>
+                    </select>
+                </div>
+                <!-- Botones -->
+                <div>
+                    <button type="submit">Enviar</button>
+                    <button type="reset">Limpiar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <img class="logoautocity" src="./img/logoautocity.jpg" alt="">
+        <div class="atencion">
+            <h2>Atención al cliente</h2>
+            <p>Teléfono: 0810-888-4000</p>
+            <p>Lunes a Viernes de 8:30 a 17:30hs</p>
+            <p>Av. Santa Ana 6363 esq. Circunvalación</p>
+        </div>
+    </footer>
+
+    <script>
+        const vehiculoSelect = document.getElementById('vehiculo');
+        const versionContainer = document.getElementById('version-vehiculo-container');
+        const versionSelect = document.getElementById('version-vehiculo');
+        const color1 = document.getElementById("color1");
+        const color2 = document.getElementById("color2");
+        const color3 = document.getElementById("color3");
+        const entregaUsadoSelect = document.getElementById('entrega-usado');
+        const datosUsadoContainer = document.getElementById('datos-usado');
+        const cambioTitularidadSelect = document.getElementById('cambio-titularidad');
+        const nuevoTitularContainer = document.getElementById('nuevo-titular');
+
+        const versionesPorVehiculo = {
+            "Fiat Cronos": [
+                "CRONOS LIKE 1.3 GSE Bz",
+                "CRONOS DRIVE 1.3 MT5 PACK PlUS",
+                "CRONOS PRECISION 1.3 CVT"
+            ],
+            "Fiat Mobi": [
+                "MOBI TREKKING 1.0 MT"
+            ],
+            "Fiat Pulse": [
+                "PULSE DRIVE 1.3 MT5",
+                "PULSE DRIVE 1.3 CVT",
+                "PULSE AUDACE 1.0T CVT",
+                "PULSE IMPETUS 1.0T CVT"
+            ],
+            "Fiat Strada": [
+                "STRADA FREEDOM 1.3 8V MT",
+                "STRADA VOLCANO 1.3 8V CD CVT"
+
+            ],
+            "Fiat Fastback": [
+                "FASTBACK TURBO 270 AT6"
+            ],
+            "Fiat Toro": [
+                "TORO FREEDOM T270 AT6 4X2",
+                "TORO VOLCANO 1.3T 16v CD 4X2 AT6",
+                "TORO VOLCANO 2.0 DIESEL 4X4 AT9"
+            ],
+            "Fiat Fiorino": [
+                "FIORINO ENDURANCE 1.4 MT5"
+            ]
+        };
+
+        vehiculoSelect.addEventListener('change', function () {
+            const selectedVehiculo = vehiculoSelect.value;
+            const versiones = versionesPorVehiculo[selectedVehiculo] || [];
+
+            versionSelect.innerHTML = "<option value=''>Seleccionar versión...</option>";
+            versiones.forEach(function (version) {
+                const option = document.createElement('option');
+                option.value = version;
+                option.textContent = version;
+                versionSelect.appendChild(option);
+            });
+
+            versionContainer.classList.toggle('hidden', versiones.length === 0);
+        });
+
+        entregaUsadoSelect.addEventListener('change', function () {
+            const entregaUsado = entregaUsadoSelect.value;
+            datosUsadoContainer.classList.toggle('hidden', entregaUsado !== 'si');
+        });
+
+        cambioTitularidadSelect.addEventListener('change', function () {
+            const cambioTitularidad = cambioTitularidadSelect.value;
+            nuevoTitularContainer.classList.toggle('hidden', cambioTitularidad !== 'si');
+        });
+
+        // Función para imprimir después de validar el formulario
+        function imprimirFormulario(event) {
+            // Prevenir el envío del formulario
+            event.preventDefault();
+
+            // Validar el formulario
+            if (validarFormulario()) {
+                // Si el formulario es válido, proceder a imprimir
+                window.print();
+            }
+        }
+
+        function validarFormulario() {
+            // Validar correo
+            const email = document.getElementById("email").value;
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("error-email").style.display = 'block';
+                return false;
+            }
+
+            // Validar teléfono
+            const telefono = document.getElementById("telefono").value;
+            const telefonoRegex = /^[0-9]{8,}$/;
+            if (!telefonoRegex.test(telefono)) {
+                document.getElementById("error-telefono").style.display = 'block';
+                return false;
+            }
+
+            return true;
+        }
+
+        // Asignar el evento al botón "Enviar"
+        const formulario = document.getElementById("formulario");
+        formulario.addEventListener("submit", imprimirFormulario);
+
+
+        const modelosColores = {
+            "CRONOS LIKE 1.3 GSE Bz": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa"],
+            "CRONOS DRIVE 1.3 MT5 PACK PlUS": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Blanco Alaska", "Negro Vulcano", "Blanco Banchisa"],
+            "CRONOS PRECISION 1.3 CVT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Blanco Alaska", "Negro Vulcano", "Blanco Banchisa"],
+            "TORO FREEDOM T270 AT6 4X2": ["Rojo Colorado", "Billet Silver", "Gris Granito", "Negro Carbono", "Blanco Ambiente"],
+            "TORO VOLCANO 1.3T 16v CD 4X2 AT6": ["Rojo Colorado", "Billet Silver", "Gris Granito", "Negro Carbono", "Blanco Polar", "Azul Jazz", "Sting Grey"],
+            "TORO VOLCANO 2.0 DIESEL 4X4 AT9": ["Rojo Colorado", "Billet Silver", "Gris Granito", "Negro Carbono", "Blanco Polar", "Azul Jazz", "Sting Grey"],
+            "FIORINO ENDURANCE 1.4 MT5": ["Blanco Banchisa"],
+            "STRADA FREEDOM 1.3 8V CD": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa"],
+            "STRADA VOLCANO 1.3 8V CD CVT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa"],
+            "PULSE DRIVE 1.3 MT5": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa", "Gris Strato"],
+            "PULSE AUDACE 1.0T CVT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa", "Gris Strato"],
+            "PULSE DRIVE 1.3 CVT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa", "Gris Strato"],
+            "FASTBACK TURBO 270 AT6": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa", "Gris Strato"],
+            "PULSE IMPETUS 1.0T CVT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Blanco Banchisa", "Gris Strato"],
+            "MOBI TREKKING 1.0 MT": ["Rojo Montecarlo", "Plata Bari", "Gris Silverstone", "Negro Vulcano", "Blanco Banchisa"]
+        };
+
+        vehiculoSelect.addEventListener('change', function () {
+            const selectedVehiculo = vehiculoSelect.value;
+
+            // Mostrar el contenedor de la versión
+            if (selectedVehiculo) {
+                versionContainer.classList.remove('hidden');
+
+                // Limpiar las versiones anteriores
+                versionSelect.innerHTML = '<option value="">Seleccionar versión...</option>';
+
+                // Agregar las versiones correspondientes
+                if (versionesPorVehiculo[selectedVehiculo]) {
+                    versionesPorVehiculo[selectedVehiculo].forEach(function (version) {
+                        const option = document.createElement('option');
+                        option.value = version;
+                        option.textContent = version;
+                        versionSelect.appendChild(option);
+                    });
+                }
+            } else {
+                versionContainer.classList.add('hidden');
+            }
+        });
+
+        versionSelect.addEventListener('change', function () {
+            const selectedVersion = versionSelect.value;
+
+            // Limpiar y mostrar los colores correspondientes
+            if (selectedVersion) {
+                const colores = modelosColores[selectedVersion] || [];
+
+                // Limpiar los select de colores
+                color1.innerHTML = "<option value=''>-- Seleccione un Color --</option>";
+                color2.innerHTML = "<option value=''>-- Seleccione un Color --</option>";
+                color3.innerHTML = "<option value=''>-- Seleccione un Color --</option>";
+
+                colores.forEach(function (color) {
+                    const option1 = document.createElement("option");
+                    option1.value = color;
+                    option1.textContent = color;
+                    color1.appendChild(option1);
+
+                    const option2 = document.createElement("option");
+                    option2.value = color;
+                    option2.textContent = color;
+                    color2.appendChild(option2);
+
+                    const option3 = document.createElement("option");
+                    option3.value = color;
+                    option3.textContent = color;
+                    color3.appendChild(option3);
+                });
+            }
+        });
+
+        // Función para formatear el precio con el símbolo "$" y separador de miles
+        function formatearPrecioToma(event) {
+            let valor = event.target.value;
+
+            // Eliminar cualquier carácter que no sea número, punto o coma
+            valor = valor.replace(/[^\d,\.]/g, '');
+
+            // Verificar si ya tiene el símbolo "$"
+            if (valor.indexOf('$') === -1) {
+                valor = '$' + valor;
+            }
+
+            // Asegurarse de que no haya más de un punto o coma
+            let [entero, decimal] = valor.split(',');
+
+            // Eliminar los puntos ya existentes para evitar múltiples puntos
+            entero = entero.replace(/\./g, '');
+
+            // Agregar puntos como separadores de miles
+            entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            // Si tiene decimales, mantener solo dos
+            if (decimal) {
+                decimal = decimal.substring(0, 2); // Limitar a dos decimales
+                valor = entero + ',' + decimal;
+            } else {
+                valor = entero;
+            }
+
+            // Actualizar el campo con el valor formateado
+            event.target.value = valor;
+        }
+
+        // Asignar el evento de formateo de precio al campo de entrada
+        const campoPrecioToma = document.getElementById("precio-toma");
+        campoPrecioToma.addEventListener("input", formatearPrecioToma);
+
+        // Obtener el campo de calificación y el mensaje de error
+        const campoCalificacion = document.getElementById("calificacion");
+        const mensajeErrorCalificacion = document.getElementById("error-calificacion");
+
+        // Validar que el valor esté entre 1 y 10
+        campoCalificacion.addEventListener("blur", function () {
+            const valor = parseInt(campoCalificacion.value, 10);
+            if (isNaN(valor) || valor < 1 || valor > 10) {
+                mensajeErrorCalificacion.style.display = "inline";
+                campoCalificacion.value = ""; // Vaciar el campo si el valor no es válido
+            } else {
+                mensajeErrorCalificacion.style.display = "none";
+            }
+        });
+
+        // Validación adicional antes de enviar el formulario (opcional)
+        document.querySelector("form").addEventListener("submit", function (event) {
+            const valor = parseInt(campoCalificacion.value, 10);
+            if (isNaN(valor) || valor < 1 || valor > 10) {
+                mensajeErrorCalificacion.style.display = "inline";
+                event.preventDefault(); // Evitar el envío si el valor no es válido
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
