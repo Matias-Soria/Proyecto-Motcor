@@ -142,6 +142,8 @@ footer {
     align-items: center;
 }
 
+/**EVITAR IMPRIMIR**/
+
 @media print {
     .navbar {
         display: none; /* Oculta la barra de navegación */

@@ -60,6 +60,23 @@
                     <span class="error" id="error-telefono">Por favor, ingrese un número de teléfono válido (mínimo 8
                         dígitos).</span>
                 </div>
+                <!-- Profesión -->
+                <div>
+                    <label for="profesion">Profesión:</label>
+                    <input type="text" id="profesion" name="profesion">
+                </div>
+                <!-- Estado civil -->
+                <div>
+                    <label for="estado-civil">Estado civil:</label>
+                    <select id="estado-civil" name="estado-civil" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="soltero">Soltero/a</option>
+                        <option value="casado">Casado/a</option>
+                        <option value="divorciado">Divorciado/a</option>
+                        <option value="viudo">Viudo/a</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
                 <!-- Realiza cambio de titularidad -->
                 <div>
                     <label for="cambio-titularidad">¿Realiza cambio de titularidad?</label>
@@ -73,6 +90,15 @@
                 <div id="nuevo-titular" class="hidden">
                     <label for="nombre-nuevo-titular">Nombre del nuevo titular:</label>
                     <input type="text" id="nombre-nuevo-titular" name="nombre-nuevo-titular">
+
+                    <label for="email-nuevo-titular">Mail del nuevo titular:</label>
+                    <input type="email" id="email-nuevo-titular" name="email-nuevo-titular">
+                    <span class="error" id="error-email-nuevo-titular">Por favor, ingrese un correo válido.</span>
+
+                    <label for="telefono-nuevo-titular">Teléfono del nuevo titular:</label>
+                    <input type="tel" id="telefono-nuevo-titular" name="telefono-nuevo-titular">
+                    <span class="error" id="error-telefono-nuevo-titular">Por favor, ingrese un número de teléfono
+                        válido.</span>
                 </div>
                 <div>
                     <label for="vehiculo">Seleccione el vehículo que solicita el cliente:</label>
@@ -115,6 +141,16 @@
                         <option value="B">Factura B</option>
                     </select>
                 </div>
+                <!-- Tipo de Uso -->
+                <div>
+                    <label for="tipo-Uso">Tipo de uso:</label>
+                    <select id="tipo-uso" name="tipo-uso" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="A">Particular</option>
+                        <option value="B">Flota/Trabajo</option>
+                        <option value="B">Regalo</option>
+                    </select>
+                </div>
                 <!-- Entrega vehículo usado -->
                 <div>
                     <label for="entrega-usado">¿Entrega vehículo usado?</label>
@@ -147,27 +183,19 @@
                         <input type="text" id="precio-toma" name="precio-toma">
                     </div>
                 </div>
-                <!-- Profesión -->
-                <div>
-                    <label for="profesion">Profesión:</label>
-                    <input type="text" id="profesion" name="profesion">
-                </div>
-                <!-- Estado civil -->
-                <div>
-                    <label for="estado-civil">Estado civil:</label>
-                    <select id="estado-civil" name="estado-civil" required>
-                        <option value="">Seleccionar...</option>
-                        <option value="soltero">Soltero/a</option>
-                        <option value="casado">Casado/a</option>
-                        <option value="divorciado">Divorciado/a</option>
-                        <option value="viudo">Viudo/a</option>
-                        <option value="otro">Otro</option>
-                    </select>
-                </div>
                 <!-- Primer 0KM -->
                 <div>
                     <label for="primer-0km">¿Es su primer 0KM?</label>
                     <select id="primer-0km" name="primer-0km" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <!-- Manejo Automático -->
+                <div>
+                    <label for="manejo-automatico">¿Manejo alguna vez auto con caja automática?</label>
+                    <select id="manejo-automatico" name="manejo-automatico" required>
                         <option value="">Seleccionar...</option>
                         <option value="si">Sí</option>
                         <option value="no">No</option>
@@ -182,6 +210,11 @@
                         <option value="no">No</option>
                     </select>
                 </div>
+                <!-- Bonificaciones otorgadas -->
+                <div>
+                    <label for="Bonificaciones">Bonificaciones otorgadas:</label>
+                    <input type="text" id="bonificaciones" name="bonificaciones" required>
+                </div>
                 <!--Calificacion de atencion-->
                 <div>
                     <label for="calificacion">
@@ -193,7 +226,11 @@
                         Por favor, ingrese un número del 1 al 10.
                     </small>
                 </div>
-
+                <div id="inconveniente-container" class="hidden">
+                    <label for="inconveniente">Por favor, comparta cualquier comentario o sugerencia sobre el proceso de compra.:</label>
+                    <textarea id="inconveniente" rows="4" cols="50"
+                        placeholder="Describa los inconvenientes..."></textarea>
+                </div>
                 <!-- Administrativo de atencion -->
                 <div>
                     <label for="Administrativo">Administrativo que atendió:</label>
@@ -201,6 +238,7 @@
                         <option value="">Seleccionar...</option>
                         <option value="Daniela Costa">Daniela Costa</option>
                         <option value="Emiliano Perez">Emiliano Perez</option>
+                        <option value="Yanina Espino">Yanina Espino</option>
                     </select>
                 </div>
                 <!-- Botones -->
@@ -306,6 +344,21 @@
                 return false;
             }
 
+            // Validar campos del nuevo titular si hay cambio de titularidad
+            if (cambioTitularidadSelect.value === "si") {
+                const emailNuevoTitular = document.getElementById("email-nuevo-titular").value;
+                if (!emailRegex.test(emailNuevoTitular)) {
+                    document.getElementById("error-email-nuevo-titular").style.display = 'block';
+                    return false;
+                }
+
+                const telefonoNuevoTitular = document.getElementById("telefono-nuevo-titular").value;
+                if (!telefonoRegex.test(telefonoNuevoTitular)) {
+                    document.getElementById("error-telefono-nuevo-titular").style.display = 'block';
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -321,7 +374,7 @@
             "COMPASS SPORT T270 AT6 4X2": ["Billet Silver", "Blanco Polar", "Gris Granito", "Negro Carbono"],
             "COMPASS LIMITED PLUS T 270 AT6 4X2": ["Polar White BC", "Billet Silver BC", "Granite Crystal BC", "Negro Carbono"],
             "COMPASS S T270 AT6 FWD": ["Polar White BC", "Sting Gray BC"],
-            "RAMPAGE REBEL 2.0L GME AT9": ["Billet Silver", "Rojo Colorado","Azul Jazz", "Sting Grey", "Maximus Steel Metallic", "Blanco Polar", "Negro Carbono"],
+            "RAMPAGE REBEL 2.0L GME AT9": ["Billet Silver", "Rojo Colorado", "Azul Jazz", "Sting Grey", "Maximus Steel Metallic", "Blanco Polar", "Negro Carbono"],
             "RAMPAGE LARAMIE 2.0L GME AT9 4X4": ["Blanco Polar", "Negro Carbono"],
             "RAMPAGE R/T 2.0L GME AT9 4X4": ["Polar White BC", "Sting Gray BC", "Billet Silver BC", "Maximus Steel Metallic BC", "Colorado Red BC", "Negro Carbono"]
         };
@@ -422,14 +475,20 @@
         const campoCalificacion = document.getElementById("calificacion");
         const mensajeErrorCalificacion = document.getElementById("error-calificacion");
 
-        // Validar que el valor esté entre 1 y 10
+        // Validación de la calificación y mostrar campo de inconveniente si es <= 8
         campoCalificacion.addEventListener("blur", function () {
             const valor = parseInt(campoCalificacion.value, 10);
             if (isNaN(valor) || valor < 1 || valor > 10) {
                 mensajeErrorCalificacion.style.display = "inline";
                 campoCalificacion.value = ""; // Vaciar el campo si el valor no es válido
+                document.getElementById("inconveniente-container").classList.add('hidden'); // Ocultar el campo de inconvenientes
             } else {
                 mensajeErrorCalificacion.style.display = "none";
+                if (valor <= 8) {
+                    document.getElementById("inconveniente-container").classList.remove('hidden'); // Mostrar el campo de inconvenientes si la calificación es <= 8
+                } else {
+                    document.getElementById("inconveniente-container").classList.add('hidden'); // Ocultar el campo de inconvenientes si la calificación es > 8
+                }
             }
         });
 
@@ -441,7 +500,6 @@
                 event.preventDefault(); // Evitar el envío si el valor no es válido
             }
         });
-
 
     </script>
 </body>
