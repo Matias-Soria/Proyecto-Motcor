@@ -100,6 +100,21 @@
                     <span class="error" id="error-telefono-nuevo-titular">Por favor, ingrese un número de teléfono
                         válido.</span>
                 </div>
+                <!-- Datos Cotitular -->
+                <div>
+                    <label for="cotitularidad">¿El plan tiene cotitularidad?</label>
+                    <select id="cotitularidad" name="cotitularidad" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div id="cotitular-container" class="hidden">
+                    <label for="nombre-cotitular">Nombre del Cotitular:</label>
+                    <input type="text" id="nombre-cotitular" name="nombre-cotitular"
+                        placeholder="Ingrese el nombre del cotitular">
+                </div>
+                <!-- Datos Vehiculo que elige el cliente -->
                 <div>
                     <label for="vehiculo">Seleccione el vehículo que solicita el cliente:</label>
                     <select id="vehiculo" name="vehiculo" required>
@@ -153,6 +168,16 @@
                         <option value="A">Particular</option>
                         <option value="B">Flota/Trabajo</option>
                         <option value="B">Regalo</option>
+                    </select>
+                </div>
+                <!-- Lugar donde retira el cliente -->
+                <div>
+                    <label for="lugar-retiro">¡Donde se entregaria el 0km?:</label>
+                    <select id="lugar-retiro" name="lugar-retiro" required>
+                        <option value="">Seleccionar...</option>
+                        <option value="Cordoba">Av. Santa Ana n° 6571 - Córdoba</option>
+                        <option value="Rio Cuarto">Ruta A005 Y Pte. Peron Oeste - Rio Cuarto  </option>
+                        <option value="Villa Maria">Pte. Peron n° 1500 - Villa Maria</option>
                     </select>
                 </div>
                 <!-- Entrega vehículo usado -->
@@ -323,6 +348,15 @@
             nuevoTitularContainer.classList.toggle('hidden', cambioTitularidad !== 'si');
         });
 
+        const cotitularidadSelect = document.getElementById('cotitularidad');
+        const cotitularContainer = document.getElementById('cotitular-container');
+
+        cotitularidadSelect.addEventListener('change', function () {
+            const cotitularidad = cotitularidadSelect.value;
+            cotitularContainer.classList.toggle('hidden', cotitularidad !== 'si');
+        });
+
+
         // Función para imprimir después de validar el formulario
         function imprimirFormulario(event) {
             // Prevenir el envío del formulario
@@ -370,9 +404,28 @@
             return true;
         }
 
-        // Asignar el evento al botón "Enviar"
-        const formulario = document.getElementById("formulario");
-        formulario.addEventListener("submit", imprimirFormulario);
+        function validarCotitularidad() {
+            if (cotitularidadSelect.value === 'si') { // Si se selecciona "Sí" en cotitularidad
+                const nombreCotitular = document.getElementById('nombre-cotitular').value.trim(); // Captura el valor del campo
+                if (nombreCotitular === '') { // Verifica si está vacío
+                    alert('Por favor, ingrese el nombre del cotitular.'); // Muestra una alerta si está vacío
+                    return false;
+                }
+            }
+            return true; // Retorna verdadero si todo está correcto
+        }
+
+
+
+        formulario.addEventListener('submit', function (event) {
+            // Ejecuta ambas validaciones: cotitularidad y formulario general
+            if (!validarCotitularidad() || !validarFormulario()) {
+                event.preventDefault(); // Evita que el formulario se envíe si alguna validación falla
+            } else {
+                imprimirFormulario(event); // Llama a la función de impresión solo si todo es válido
+            }
+        });
+
 
 
         const modelosColores = {
