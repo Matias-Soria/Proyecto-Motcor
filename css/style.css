@@ -1,7 +1,7 @@
 /**RESET**/
 * {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -27,20 +27,24 @@ header {
     background-color: black;
     overflow: hidden;
 }
+
 .navbar ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
+
 .navbar li {
     display: inline-block;
     padding: 14px 20px;
 }
+
 .navbar a {
     text-decoration: none;
     color: white;
     font-size: 30px;
 }
+
 .navbar a:hover {
     color: orange;
     transition: 0.5s;
@@ -56,11 +60,14 @@ header {
 
 main {
     background-color: rgba(169, 169, 169, 0.568);
-    padding: 20px; /* Agrega espacio dentro del contenedor principal */
-    min-height: calc(100vh - 140px); /* Ajusta dinámicamente para ocupar toda la pantalla */
+    padding: 20px;
+    /* Agrega espacio dentro del contenedor principal */
+    min-height: calc(100vh - 140px);
+    /* Ajusta dinámicamente para ocupar toda la pantalla */
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Asegura que el formulario y el footer estén correctamente alineados */
+    justify-content: space-between;
+    /* Asegura que el formulario y el footer estén correctamente alineados */
 }
 
 main section h1 {
@@ -75,7 +82,8 @@ form {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     max-width: 800px;
-    margin: 20px auto; /* Centra el formulario */
+    margin: 20px auto;
+    /* Centra el formulario */
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -91,7 +99,9 @@ label {
     margin-bottom: 5px;
 }
 
-input, select, button {
+input,
+select,
+button {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -100,7 +110,8 @@ input, select, button {
     box-sizing: border-box;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     border-color: #007BFF;
     outline: none;
 }
@@ -128,6 +139,56 @@ button[type="reset"]:hover {
     background-color: #5a6268;
 }
 
+/*?FIRMA DEL CLIENTE**/
+
+.signature-section {
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 2px dashed #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.signature-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 70px; /* Más espacio debajo del título */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.signature-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /* Más espacio entre líneas */
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 400px;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px; /* Más espacio debajo de las líneas */
+    position: relative;
+}
+
+.line span {
+    position: absolute;
+    top: -25px; /* Ajusta la posición del texto respecto a la línea */
+    left: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    padding: 0 5px;
+    transform: translateY(50%);
+}
+
+
+
 /*!FOOTER**/
 
 footer {
@@ -146,9 +207,15 @@ footer {
 
 @media print {
     .navbar {
-        display: none; /* Oculta la barra de navegación */
+        display: none;
+        /* Oculta la barra de navegación */
     }
-    button, input[type="button"], input[type="submit"], input[type="reset"] {
-        display: none; /* Oculta todos los botones */
+
+    button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"] {
+        display: none;
+        /* Oculta todos los botones */
     }
 }
